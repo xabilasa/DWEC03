@@ -1,77 +1,131 @@
-'use-strict'
+'use strict'
 $(document).ready(function(){
 
-// Seleccionar tablero según el nivel elegido
-//Obtener los datos del nivel seleccionado
-function obtenerDatosNivel(nivel){
-    if(nivel === "ternero"){
-        return datosTablerosTernero;
-    } else if (nivel === "vaquilla"){
-        return datosTablerosVaquilla;
-    } else if (nivel === "torete"){
-        return datosTablerosTorete;
-    } else {
-        console.log("Nivel no válido");
+    //Variable para guardar los tableros jugados y que no se repitan
+    const tablerosJugados = {
+        ternero: [],
+        vaquilla: [],
+        torete: []
     }
-}
 
-//seleccionar tablero aleatorio del nivel elegido
+    // Seleccionar tablero según el nivel elegido
+    function obtenerDatosNivel(nivel) {
+        if (nivel === "ternero") {
+            return datosTablerosTernero;
+        } else if (nivel === "vaquilla") {
+            return datosTablerosVaquilla;
+        } else if (nivel === "torete") {
+            return datosTablerosTorete;
+        } else {
+            console.log("Nivel no válido");
+            return null;
+        }
+    }
 
-function seleccionarTablero(nivel){
+    // Seleccionar un tablero aleatorio que no se haya jugado
+    function seleccionarTablero(nivel) {
+        let jugados = tablerosJugados[nivel];
+        let datosTablero = obtenerDatosNivel(nivel);
 
-}
-// FUNCIÓN seleccionarTablero(nivel)
-//     OBTENER los datos correspondientes al nivel
-//     OBTENER el array de tableros de esos datos
-//     GENERAR un número aleatorio
-//         entre 0 y la cantidad de tableros - 1
-//     SELECCIONAR el tablero situado en ese índice
-//     DEVOLVER el tablero seleccionado
-// FIN FUNCIÓN
+        // Comprobar que el nivel es válido
+        if (datosTablero === null) {
+            return null;
+        }
 
-// Dibujar el tablero
+        let disponibles = [];
 
-// FUNCIÓN dibujarTablero(tablero, tamano)
-//     OBTENER el contenedor HTML del tablero
-//     ELIMINAR su contenido anterior
-//     AÑADIR la clase CSS que corresponda al tamaño:
-//         grid-8, grid-12 o grid-16
-//     PARA CADA fila del tablero
-//         PARA CADA casilla de esa fila
-//             CREAR un elemento HTML div
-//             AÑADIR la clase CSS "casilla"
-//             OBTENER el identificador de región de la casilla
-//             DETERMINAR la clase CSS de color
-//                 que corresponde a esa región
-//             AÑADIR la clase de color al elemento HTML
-//             GUARDAR las coordenadas de la casilla
-//                 en atributos data-fila y data-columna
-//             AÑADIR el elemento HTML al contenedor
-//         FIN PARA
-//     FIN PARA
-// FIN FUNCIÓN
+        for (let i = 0; i < datosTablero.tableros.length; i++) {
+            let encontrado = false;
 
-// LLamada a los procesos anteriores para pintar el tablero de forma coordinada
+            for (let j = 0; j < jugados.length; j++) {
+                if (datosTablero.tableros[i].idTablero === jugados[j]) {
+                    encontrado = true;
+                }
+            }
 
-// FUNCIÓN iniciarPartida(nivel)
-//     INTENTAR
-//         datosTablero = ESPERAR seleccionarTablero(nivel)
-//         tamano = datosTablero.tamano
-//         tablero = crearTablero(tamano)
-//         colocarVacas(tablero, datosTablero)
-//         asignarRegiones(tablero, datosTablero)
-//         dibujarTablero(tablero)
-//         MOSTRAR la pantalla de juego
-//     SI SE PRODUCE UN ERROR
-//         MOSTRAR un mensaje indicando que no se ha podido cargar
-//         el tablero
-//     FIN INTENTAR
-// FIN FUNCIÓN
+            if (encontrado === false) {
+                disponibles.push(datosTablero.tableros[i]);
+            }
+        }
+        //Comprobar si quedan tableros y elegir uno aleatorio 
+        if (disponibles.length === 0){
+            mensajeNoTableros();// pendiente crear funcion mensaje de no hay tableros disponibles
+            return null; 
+        } else {
+            let indice = Math.floor(Math.random() * disponibles.length);
+            return disponibles[indice];
+        }
+    }
 
-});
+    //Registrar tablero jugado para que no se repita
+    function registrarTableroJugado(tablero, nivel){
+        let encontrado = false;
+        for(let i=0; i < tablerosJugados.nivel.length;i++){
+            if(tablerosJugados[nivel] === tablero.idTablero){
+                encontrado = true;
+            }
+        }
+        if (encontrado === false){
+            tablerosJugados[nivel].push(tablero.idTablero)
+        }
+    }
+    // Dibujar el tablero
+    function dibujarTablero(tablero, datosTablero){
+        let tableroJuego = $("#tablero");
+        //Borramos el contenido del tablero anterior si existe
+        tableroJuego.empty();
 
-//Eventos de nivel
+        let tamanioGrid = "grid-" + datosTablero.tamano;
 
-$('#niveles').on('click', '.boton-nivel', function() {
-    const nivel = $(this).data('nivel');
+        tableroJuego.removeClass("grid-8 grid-12 grid-16");
+        tableroJuego.addClass(tamanioGrid);
+
+        tablero.forEach(fila => {
+            fila.forEach(casilla => {
+                let nuevaCasilla = $("<div></div>");
+                nuevaCasilla.addClass("casilla");
+
+                let indiceRegion = datosTablero.regiones.findIndex(
+                    region => region.idVaca === casilla.idRegion);
+                if (indiceRegion !== -1) {
+                    nuevaCasilla.addClass("color-pasto-" + (indiceRegion + 1));
+                }
+
+                tableroJuego.append(nuevaCasilla);
+            });
+        
+        });
+    }
+
+    function iniciarPartida(nivel) {
+
+        // Seleccionar un tablero del nivel elegido
+        let datosTablero = seleccionarTablero(nivel);
+
+        // Si no quedan tableros, no continuamos
+        if (datosTablero === null) {
+            return;
+        }
+
+        // Crear la matriz de casillas
+        let tablero = crearTablero(datosTablero.tamano);
+
+        // Colocar las vacas y asignar las regiones
+        colocarVacas(tablero, datosTablero);
+        asignarRegiones(tablero, datosTablero);
+
+        // Dibujar el tablero en pantalla
+        dibujarTablero(tablero, datosTablero);
+
+        // Mostrar la pantalla del juego
+        mostrarPantalla("juego");
+    }
+
+    //Eventos de nivel
+
+    $('#niveles').on('click', '.boton-nivel', function() {
+        const nivel = $(this).data('nivel');
+        iniciarPartida(nivel);
+    });
+    // $("#casilla").on('click', )
 });
