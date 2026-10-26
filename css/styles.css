@@ -561,3 +561,78 @@ body {
 .color-pasto-14 { background-color: #657F68; }
 .color-pasto-15 { background-color: #C9D98A; }
 .color-pasto-16 { background-color: #B9A995; }
+
+/* clases de estado de casilla*/
+.hayVaca {
+    background-image: url("../assets/images/vaca.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.hayAspa {
+    background-image: url("../assets/images/aspa.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+/* Barra de información situada encima del tablero */
+.info-jugador {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    padding: 0 2px;
+}
+
+/* Nombre del jugador, en la esquina izquierda */
+.nombre-jugador {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/* Contenedor de corazones, en la esquina derecha */
+.vidas {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+}
+
+/* Imagen de la vida / corazón */
+.corazon {
+    display: block;
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    cursor: default;
+}
+
+/* Imagen de una vida consumida */
+.corazon.consumido {
+    cursor: help;
+}
+
+/* Adaptación a pantallas pequeñas */
+@media (max-width: 480px) {
+    .info-jugador {
+        margin-bottom: 6px;
+    }
+
+    .nombre-jugador {
+        font-size: 0.9rem;
+    }
+
+    .vidas {
+        gap: 4px;
+    }
+
+    .corazon {
+        width: 22px;
+        height: 22px;
+    }
+}
