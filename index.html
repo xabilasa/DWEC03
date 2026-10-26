@@ -99,89 +99,123 @@
     </main>
 
     
-<main id="juego" class="hidden">
+    <main id="juego" class="hidden">
 
-    <section class="juego-contenido">
+        <section class="juego-contenido">
 
-        <header class="juego-encabezado">
-            <h1 class="titulo-juego">Muuudoku</h1>
+            <header class="juego-encabezado">
+                <h1 class="titulo-juego">Muuudoku</h1>
 
-            <div class="cronometro">
-                <span>Tiempo:</span>
-                <strong id="tiempo">1:25</strong>
+                <div class="cronometro">
+                    <span>Tiempo:</span>
+                    <strong id="tiempo">1:25</strong>
+                </div>
+            </header>
+
+            <div id="info-jugador" class="info-jugador">
+
+                <p id="nombre-jugador" class="nombre-jugador">Jugador 1</p>
+                <div id="vidas" class="vidas" aria-label="Vidas restantes">
+                    <img class="corazon" src="assets/images/corazon.png" alt="Vida 1">
+                    <img class="corazon" src="assets/images/corazon.png" alt="Vida 2">
+                    <img class="corazon" src="assets/images/corazon.png" alt="Vida 3">
+                </div>
+
             </div>
-        </header>
 
-        <p id="nombre-jugador" class="nombre-jugador">Jugador 1</p>
+            <div id="tablero" class="tablero" aria-label="Tablero de juego">
+                <!-- Las 100 casillas se crearán con JavaScript -->
+            </div>
 
-        <div id="tablero" class="tablero" aria-label="Tablero de juego">
-            <!-- Las 100 casillas se crearán con JavaScript -->
-        </div>
+            <nav class="botones-juego" aria-label="Opciones de partida">
+                <button type="button" id="btn-reiniciar" class="boton-principal">
+                    Reiniciar
+                </button>
 
-        <nav class="botones-juego" aria-label="Opciones de partida">
-            <button type="button" id="btn-reiniciar" class="boton-principal">
-                Reiniciar
-            </button>
-
-            <button type="button" id="btn-salir" class="boton-secundario">
-                Salir
-            </button>
-        </nav>
-
-    </section>
-
-</main>
-
-    
-<main id="topPastos" class="hidden">
-
-    <section class="top-contenido">
-
-        <header class="top-encabezado">
-            <h1 class="titulo-juego">Muuudoku</h1>
-            <p class="subtitulo-bienvenida">Top Pastos:</p>
-        </header>
-
-        <section class="tarjeta-clasificacion">
-
-            <section class="grupo-clasificacion">
-                <h2 class="nivel-clasificacion">Torete</h2>
-                <ol class="lista-records">
-                    <li><span>Pablo el de Heidi</span><span>01:32</span></li>
-                    <li><span>Patxi de Kortezubi</span><span>01:50</span></li>
-                    <li><span>Anton Pirulero</span><span>02:15</span></li>
-                </ol>
-            </section>
-
-            <section class="grupo-clasificacion">
-                <h2 class="nivel-clasificacion">Vaquilla</h2>
-                <ol class="lista-records">
-                    <li><span>Pablo el de Heidi</span><span>01:32</span></li>
-                    <li><span>Patxi de Kortezubi</span><span>01:50</span></li>
-                    <li><span>Anton Pirulero</span><span>02:15</span></li>
-                </ol>
-            </section>
-
-            <section class="grupo-clasificacion">
-                <h2 class="nivel-clasificacion">Ternero</h2>
-                <ol class="lista-records">
-                    <li><span>Pablo el de Heidi</span><span>01:32</span></li>
-                    <li><span>Patxi de Kortezubi</span><span>01:50</span></li>
-                    <li><span>Anton Pirulero</span><span>02:15</span></li>
-                </ol>
-            </section>
+                <button type="button" id="btn-salir" class="boton-secundario">
+                    Salir
+                </button>
+            </nav>
 
         </section>
 
-        <button type="button" id="btn-volver-pastar" class="boton-top">
-            Volver a pastar
-        </button>
+    </main>
 
-    </section>
+        
+    <main id="topPastos" class="hidden">
 
-</main>
+        <section class="top-contenido">
 
-</main>
+            <header class="top-encabezado">
+                <h1 class="titulo-juego">Muuudoku</h1>
+                <p class="subtitulo-bienvenida">Top Pastos:</p>
+            </header>
+
+            <section class="tarjeta-clasificacion">
+
+                <section class="grupo-clasificacion">
+                    <h2 class="nivel-clasificacion">Torete</h2>
+                    <ol class="lista-records">
+                        <li><span>Pablo el de Heidi</span><span>01:32</span></li>
+                        <li><span>Patxi de Kortezubi</span><span>01:50</span></li>
+                        <li><span>Anton Pirulero</span><span>02:15</span></li>
+                    </ol>
+                </section>
+
+                <section class="grupo-clasificacion">
+                    <h2 class="nivel-clasificacion">Vaquilla</h2>
+                    <ol class="lista-records">
+                        <li><span>Pablo el de Heidi</span><span>01:32</span></li>
+                        <li><span>Patxi de Kortezubi</span><span>01:50</span></li>
+                        <li><span>Anton Pirulero</span><span>02:15</span></li>
+                    </ol>
+                </section>
+
+                <section class="grupo-clasificacion">
+                    <h2 class="nivel-clasificacion">Ternero</h2>
+                    <ol class="lista-records">
+                        <li><span>Pablo el de Heidi</span><span>01:32</span></li>
+                        <li><span>Patxi de Kortezubi</span><span>01:50</span></li>
+                        <li><span>Anton Pirulero</span><span>02:15</span></li>
+                    </ol>
+                </section>
+
+            </section>
+
+            <button type="button" id="btn-volver-pastar" class="boton-top">
+                Volver a pastar
+            </button>
+
+        </section>
+
+    </main>
+
+    <main id="resultado" class="hidden">
+
+        <section class="resultado-contenido">
+
+            <header class="resultado-encabezado">
+                <h1 class="titulo-juego">Muuudoku</h1>
+                <h2 id="titulo-resultado"></h2>
+                <p id="mensaje-resultado"></p>
+            </header>
+
+            <nav class="botones-resultado" aria-label="Opciones de resultado">
+
+                <button type="button" id="btn-volver-niveles" class="boton-principal">
+                    Elegir nivel
+                </button>
+
+                <button type="button" id="btn-salir-resultado" class="boton-secundario">
+                    Salir
+                </button>
+
+            </nav>
+
+        </section>
+
+    </main>
+
 <!-- Tableros parseados con la colocación de vacas y regiones-->
     <script src="js/datos/tablerosTernero.js"></script>
     <script src="js/datos/tablerosVaquilla.js"></script>
@@ -189,11 +223,12 @@
 
 <!-- Archivos JavaScript necesarios -->
 
-<script src="js/main.js"></script>
+
     <script src="js/jquery-4.0.0.js"> </script>
     <script src="js/models/acceso.js"></script>
     <script src="js/models/tablero.js"></script>
     <script src="js/views/accesoVista.js"></script>
+    <script src="js/views/tableroVista.js"></script>
     <script src="js/controllers/accesoControlador.js"></script>
     <script src="js/main.js"></script>
 </body>
