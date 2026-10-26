@@ -1,4 +1,12 @@
 'use strict'
+
+// Estado de la partida actual/última
+let tableroActual = null;
+let datosTableroActual = null;
+let nivelActual = null;
+let vidasPartida = [];
+let partidaTerminada = false;
+
 $(document).ready(function(){
 
     //Variable para guardar los tableros jugados y que no se repitan
@@ -69,32 +77,50 @@ $(document).ready(function(){
             tablerosJugados[nivel].push(tablero.idTablero)
         }
     }
-    // Dibujar el tablero
-    function dibujarTablero(tablero, datosTablero){
-        let tableroJuego = $("#tablero");
-        //Borramos el contenido del tablero anterior si existe
-        tableroJuego.empty();
 
-        let tamanioGrid = "grid-" + datosTablero.tamano;
+    function registrarFallo(fila, columna) {
 
-        tableroJuego.removeClass("grid-8 grid-12 grid-16");
-        tableroJuego.addClass(tamanioGrid);
+        // Evitar registrar fallos si la partida ha terminado
+        if (partidaTerminada) {
+            return;
+        }
+        // Buscar la primera vida disponible
+        let vida = vidasPartida.find(vida => !vida.consumida);
 
-        tablero.forEach(fila => {
-            fila.forEach(casilla => {
-                let nuevaCasilla = $("<div></div>");
-                nuevaCasilla.addClass("casilla");
+        // Si no quedan vidas, no continuar
+        if (!vida) {
+            return;
+        }
+        // Guardar el fallo en la vida disponible
+        vida.consumida = true;
+        vida.fila = fila;
+        vida.columna = columna;
+        // Actualizar los corazones
+        actualizarVidasVista(vidasPartida);
+        // Calcular las vidas restantes
+        let vidasRestantes = vidasPartida.filter(
+            vida => !vida.consumida
+        ).length;
+        console.log("Vidas restantes: " + vidasRestantes);
 
-                let indiceRegion = datosTablero.regiones.findIndex(
-                    region => region.idVaca === casilla.idRegion);
-                if (indiceRegion !== -1) {
-                    nuevaCasilla.addClass("color-pasto-" + (indiceRegion + 1));
-                }
-
-                tableroJuego.append(nuevaCasilla);
-            });
-        
-        });
+        // Comprobar si se han agotado las vidas
+        if (vidasRestantes === 0) {
+            mostrarResultado("derrota");
+        }
+    }
+    
+    function mostrarResultado(resultado) {
+        partidaTerminada = true;
+        if (resultado === "victoria") {
+            $("#titulo-resultado").text("¡Enhorabuena!");
+            $("#mensaje-resultado").text("Has encontrado todas las vacas. ¡Has ganado!");
+        } else {
+            $("#titulo-resultado").text("¡Se acabaron las vidas!");
+            $("#mensaje-resultado").text("Esta vez no ha podido ser. ¡Inténtalo de nuevo!");
+        }
+        // Ocultar la pantalla de juego y mostrar el resultado
+        $("#juego").addClass("hidden");
+        $("#resultado").removeClass("hidden");
     }
 
     function iniciarPartida(nivel) {
@@ -106,26 +132,59 @@ $(document).ready(function(){
         if (datosTablero === null) {
             return;
         }
+        // Guardar los datos de la partida actual
+        nivelActual = nivel;
+        datosTableroActual = datosTablero;
 
-        // Crear la matriz de casillas
-        let tablero = crearTablero(datosTablero.tamano);
+        // Crear la matriz de casillas como el tablero actual
+        tableroActual = crearTablero(datosTablero.tamano);
 
-        // Colocar las vacas y asignar las regiones
-        colocarVacas(tablero, datosTablero);
-        asignarRegiones(tablero, datosTablero);
+        // Reiniciar el estado de la partida
+        partidaTerminada = false;
+        vidasPartida = [
+            { consumida: false, fila: null, columna: null },
+            { consumida: false, fila: null, columna: null },
+            { consumida: false, fila: null, columna: null }
+        ];
+        
+        // Colocar las vacas y asignarles las regiones
+        colocarVacas(tableroActual, datosTableroActual);
+        asignarRegiones(tableroActual, datosTableroActual);
 
         // Dibujar el tablero en pantalla
-        dibujarTablero(tablero, datosTablero);
+        disponerTablero(tableroActual, datosTableroActual);
+
+        // Mostrar las vidas iniciales
+        actualizarVidasVista(vidasPartida);
+
+        // Registrar eventos de juego
+        registraEventoTablero(tableroActual);
 
         // Mostrar la pantalla del juego
         mostrarPantalla("juego");
+
+    }
+    function comprobarVictoria(tablero) {
+        for (let fila of tablero) {
+            for (let casilla of fila) {
+                // Comprueba si hay alguna vaca sin marcar
+                if (casilla.idVaca !== null && casilla.estado !== "vaca") {
+                    return;
+                }
+            }
+        }
+        // Todas las vacas marcadas => pantalla de resultado con victoria
+        mostrarResultado("victoria");
     }
 
-    //Eventos de nivel
-
+    //Eventos de nivel: recoge el nivel de la selección de nivel
     $('#niveles').on('click', '.boton-nivel', function() {
         const nivel = $(this).data('nivel');
         iniciarPartida(nivel);
     });
-    // $("#casilla").on('click', )
+    //Botón para volver a la pantalla de nivel y seleccionar nuevo nivel
+    $("#btn-volver-niveles").on("click", function() {
+        $("#resultado").addClass("hidden");
+        $("#bienvenida").removeClass("hidden");
+    });
 });
