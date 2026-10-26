@@ -47,3 +47,64 @@ function asignarRegiones(tablero, datosTablero){
         });
     });
 }
+
+//Cambiar el estado de las casillas - sólo en el objeto casilla -.
+function cambiarEstadoCasilla(casilla){
+    if (casilla.estado === "sin_marcar"){
+        casilla.estado === "vaca";
+    } else if (casilla.estado === "vaca"){
+        casilla.estado === "descartada";
+    } else {
+        casilla.estado === "sin_marcar";
+    }
+}
+
+// Dibujar el tablero
+function disponerTablero(tablero, datosTablero){
+    let tableroJuego = $("#tablero");
+    //vaciamos el contenido del tablero anterior si existe
+    tableroJuego.empty();
+
+    let tamanioGrid = "grid-" + datosTablero.tamano;
+
+    tableroJuego.removeClass("grid-8 grid-12 grid-16");
+    tableroJuego.addClass(tamanioGrid);
+
+    tablero.forEach(fila => {
+        fila.forEach(casilla => {
+            let nuevaCasilla = $("<div></div>");
+            nuevaCasilla.addClass("casilla");
+            nuevaCasilla.attr("data-fila", casilla.fila);
+            nuevaCasilla.attr("data-columna", casilla.columna);
+            let indiceRegion = datosTablero.regiones.findIndex(
+                region => region.idVaca === casilla.idRegion);
+            if (indiceRegion !== -1) {
+                nuevaCasilla.addClass("color-pasto-" + (indiceRegion + 1));
+            }
+
+            tableroJuego.append(nuevaCasilla);
+        });
+    
+    });
+}
+
+// Actualizar la vista de la casilla pulsada
+function actualizarCasillaVista(tablero, fila, columna, estado){
+    let casilla = tablero[fila][columna];
+    let elemento = $("#tablero .casilla").filter(function() {
+        return Number($(this).data("fila")) === fila &&
+               Number($(this).data("columna")) === columna;
+    });
+    elemento.removeClass("hayVaca hayAspa");
+    switch (estado){
+        case "sin_marcar":
+            break;
+        case "vaca":
+            elemento.addClass("hayVaca");
+            break;
+        case "descartada":
+            elemento.addClass("hayAspa");
+            break;
+    }
+}
+   
