@@ -1,0 +1,111 @@
+
+<!-- Modal combinado: resultado de la partida + Top Pastos -->
+<div id="modal-resultado" class="modal hidden">
+
+    <div class="modal-contenido modal-resultado-contenido">
+
+        <!-- Resultado individual -->
+        <section id="resultado-partida" class="resultado-contenido">
+
+            <header class="resultado-encabezado">
+                <h1 class="titulo-juego">Muuudoku</h1>
+
+                <h2 id="titulo-resultado"></h2>
+
+                <p id="mensaje-resultado"></p>
+
+                <div class="puntuacion-final">
+                    <span>Puntuación obtenida</span>
+                    <strong id="puntos-resultado">0 pt</strong>
+                </div>
+            </header>
+
+        </section>
+
+        <!-- Clasificación del día -->
+        <section id="top-pastos" class="top-contenido">
+
+            <header class="top-encabezado">
+                <h2>Mejores resultados de hoy</h2>
+                <p>¿Quién domina los pastos?</p>
+            </header>
+
+            <div class="tarjeta-clasificacion">
+
+                <!-- TORETE -->
+                <section class="grupo-clasificacion"
+                         data-nivel="torete">
+
+                    <h3 class="nivel-clasificacion">Torete</h3>
+
+                    <ol id="ranking-torete"
+                        class="lista-records">
+                        <!-- JavaScript insertará los tres primeros -->
+                    </ol>
+
+                    <p id="resultado-jugador-torete"
+                       class="resultado-fuera-top hidden">
+                    </p>
+
+                </section>
+
+                <!-- VAQUILLA -->
+                <section class="grupo-clasificacion"
+                         data-nivel="vaquilla">
+
+                    <h3 class="nivel-clasificacion">Vaquilla</h3>
+
+                    <ol id="ranking-vaquilla"
+                        class="lista-records">
+                        <!-- JavaScript insertará los tres primeros -->
+                    </ol>
+
+                    <p id="resultado-jugador-vaquilla"
+                       class="resultado-fuera-top hidden">
+                    </p>
+
+                </section>
+
+                <!-- TERNERO -->
+                <section class="grupo-clasificacion"
+                         data-nivel="ternero">
+
+                    <h3 class="nivel-clasificacion">Ternero</h3>
+
+                    <ol id="ranking-ternero"
+                        class="lista-records">
+                        <!-- JavaScript insertará los tres primeros -->
+                    </ol>
+
+                    <p id="resultado-jugador-ternero"
+                       class="resultado-fuera-top hidden">
+                    </p>
+
+                </section>
+
+            </div>
+
+        </section>
+
+        <!-- Acciones -->
+        <nav class="botones-resultado"
+             aria-label="Opciones de resultado">
+
+            <button type="button"
+                    id="btn-volver-niveles"
+                    class="boton-principal">
+                Nueva partida
+            </button>
+
+            <button type="button"
+                    id="btn-salir-resultado"
+                    class="boton-secundario">
+                Salir
+            </button>
+
+        </nav>
+
+    </div>
+
+</div>
+
