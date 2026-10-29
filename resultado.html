@@ -32,56 +32,21 @@
 
             <div class="tarjeta-clasificacion">
 
-                <!-- TORETE -->
-                <section class="grupo-clasificacion"
-                         data-nivel="torete">
+                <table class="tabla-clasificacion">
+                    <thead>
+                        <tr>
+                            <th>Nivel</th>
+                            <th>1.º</th>
+                            <th>2.º</th>
+                            <th>3.º</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ranking-general">
+                        <!-- JavaScript insertará las clasificaciones -->
+                    </tbody>
+                </table>
 
-                    <h3 class="nivel-clasificacion">Torete</h3>
-
-                    <ol id="ranking-torete"
-                        class="lista-records">
-                        <!-- JavaScript insertará los tres primeros -->
-                    </ol>
-
-                    <p id="resultado-jugador-torete"
-                       class="resultado-fuera-top hidden">
-                    </p>
-
-                </section>
-
-                <!-- VAQUILLA -->
-                <section class="grupo-clasificacion"
-                         data-nivel="vaquilla">
-
-                    <h3 class="nivel-clasificacion">Vaquilla</h3>
-
-                    <ol id="ranking-vaquilla"
-                        class="lista-records">
-                        <!-- JavaScript insertará los tres primeros -->
-                    </ol>
-
-                    <p id="resultado-jugador-vaquilla"
-                       class="resultado-fuera-top hidden">
-                    </p>
-
-                </section>
-
-                <!-- TERNERO -->
-                <section class="grupo-clasificacion"
-                         data-nivel="ternero">
-
-                    <h3 class="nivel-clasificacion">Ternero</h3>
-
-                    <ol id="ranking-ternero"
-                        class="lista-records">
-                        <!-- JavaScript insertará los tres primeros -->
-                    </ol>
-
-                    <p id="resultado-jugador-ternero"
-                       class="resultado-fuera-top hidden">
-                    </p>
-
-                </section>
+                <div id="resultado-jugador-fuera-top"></div>
 
             </div>
 
@@ -108,4 +73,3 @@
     </div>
 
 </div>
-
