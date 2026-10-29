@@ -11,27 +11,24 @@ class Resultado {
 }
 // Array para guardar en LocalHost con los resultados del dia
 const topPastos = [];
-function calcularPuntuacion(aciertos, segundos, vidas, victoria){
+function calcularPuntuacion(aciertos, segundos, vidas, resultado){
     let puntuacion = 0;
-    if (victoria){
+    if (resultado === "victoria"){
         puntuacion += 25;
     }
-    puntuacion += (aciertos - 1) * 10 - 5 * (3 - vidas) - segundos;
-    if (puntuacion < 0 ){
-        puntuacion = 0;
-    }
-    return puntuacion;
+    puntuacion += (aciertos - 1) * 10;
+    puntuacion += 5 * (3 - vidas);
+    puntuacion -= segundos;
+
+    return Math.max(0, puntuacion);
 }
 
 function registrarResultado(nombreJugador, nivelActual, puntuacion){
-    let resultado = new Resultado;
-    resultado.nombre = nombreJugador;
-    resultado.nivel = nivelActual;
-    resultado.puntos = puntuacion;
-    resultado.fecha = Date(now());
+    let resultado = new Resultado(nombreJugador, nivelActual, puntuacion, new Date(Date.now()));
     if (puntuacion > 0){
         topPastos.push(resultado);
     }
+    return resultado;
 }
 
 //Obtener los tres primeros por nivel
