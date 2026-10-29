@@ -12,6 +12,10 @@ function registraEventoTablero(tablero){
         let casilla = tablero[fila][columna];
   
         if (casilla.idVaca !== null){
+            // Contar solamente si todavía no estaba descubierta
+            if (casilla.estado !== "vaca") {
+                vacasEncontradas++;
+            }
             casilla.estado = "vaca";
             actualizarCasillaVista(tablero, fila, columna, casilla.estado);
             comprobarVictoria(tablero);
@@ -25,12 +29,15 @@ function registraEventoTablero(tablero){
         if (partidaTerminada) {return;} //Para que no se pueda modificar ninguna casilla si está terminada la partida
         let fila = Number($(this).data("fila"));
         let columna = Number($(this).data("columna"));
-        let casilla = tablero[fila][columna];
-        casilla.estado = "descartada";
-        console.log("Estado de la casilla: " + casilla.estado);
-        console.log("click derecho detectado: " + fila + " - " + columna);
-        actualizarCasillaVista(tablero, fila, columna, casilla.estado); 
-        console.log("Actualización visual ejecutada");
+
+        // Quitar o poner el aspa en función del estado de la casilla para poder marcar y desmarcar
+        if (tablero[fila][columna].estado === "descartada") {
+            tablero[fila][columna].estado = "sin_marcar";
+            actualizarCasillaVista(tablero, fila, columna, "sin_marcar");
+        } else if (tablero[fila][columna].estado === "sin_marcar") {
+            tablero[fila][columna].estado = "descartada";
+            actualizarCasillaVista(tablero, fila, columna, "descartada");
+        }
     });
 
 }
@@ -48,6 +55,8 @@ function actualizarVidasVista(vidas) {
             // Guardar las coordenadas del fallo para el hover
             corazon.addClass("consumido");
             corazon.attr("title", "Casilla incorrecta: fila " + (vida.fila + 1) + ", columna " + (vida.columna + 1));
+            corazon.attr("data-fila", vida.fila);
+            corazon.attr("data-columna", vida.columna);
         } else {
             // Mostrar el corazón normal
             corazon.attr("src", "assets/images/corazon.png");
@@ -56,3 +65,21 @@ function actualizarVidasVista(vidas) {
         }
     });
 }
+
+// Evento para resaltar la casilla de fallo al pasar el ratón por el corazón
+$("#vidas").on("mouseenter", ".corazon.consumido", function() {
+
+    let fila = Number($(this).attr("data-fila"));
+    let columna = Number($(this).attr("data-columna"));
+
+    $("#tablero .casilla").filter(function() {
+        return Number($(this).data("fila")) === fila &&
+               Number($(this).data("columna")) === columna;
+    }).addClass("fallo-hover");
+
+});
+
+// Quitar el resaltado al retirar el ratón
+$("#vidas").on("mouseleave", ".corazon.consumido", function() {
+    $("#tablero .casilla").removeClass("fallo-hover");
+});
