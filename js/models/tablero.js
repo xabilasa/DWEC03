@@ -18,11 +18,11 @@ const tamano = {
 function crearTablero(tamano){
     var tablero = [];
     for (let fila = 0; fila < tamano; fila++){
-         let filaTablero = [];
-         for (let columna = 0; columna < tamano; columna++){
+        let filaTablero = [];
+        for (let columna = 0; columna < tamano; columna++){
             let casilla = new Casilla(fila, columna);
             filaTablero.push(casilla);
-         }
+        }
         tablero.push(filaTablero);
     }
     return tablero
@@ -90,7 +90,6 @@ function disponerTablero(tablero, datosTablero){
 
 // Actualizar la vista de la casilla pulsada
 function actualizarCasillaVista(tablero, fila, columna, estado){
-    let casilla = tablero[fila][columna];
     let elemento = $("#tablero .casilla").filter(function() {
         return Number($(this).data("fila")) === fila &&
                Number($(this).data("columna")) === columna;
@@ -107,4 +106,3 @@ function actualizarCasillaVista(tablero, fila, columna, estado){
             break;
     }
 }
-   
