@@ -161,7 +161,9 @@ body {
     align-items: center;
 }
 
-.bienvenida-encabezado {
+.bienvenida-encabezado, 
+.botones-resultado,
+.resultado-encabezado {
     text-align: center;
     margin-top: 100px;
     margin-bottom: 40px;
@@ -201,6 +203,25 @@ body {
     border-radius: 22px;
 }
 
+.campo-nombre {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin: 12px 0 20px;
+}
+
+/* Campo para cambiar el nombre del jugador */
+.campo-nombre input {
+    width: 180px;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font: inherit;
+    text-align: center;
+}
+
+
 /* Botones de dificultad */
 
 .boton-nivel {
@@ -228,7 +249,7 @@ body {
     outline-offset: 3px;
 }
 
-/* Botón Top pastos */
+/* Botón Top pastos - cambiado a instrucciones en pantalla bienvenida */
 
 .boton-top {
     width: 250px;
@@ -270,7 +291,7 @@ body {
 
 /* Pantalla de juego */
 
-#juego,
+#juego, #resultado,
 #topPastos {
     box-sizing: border-box;
     min-height: 100vh;
@@ -313,11 +334,41 @@ body {
     font-size: clamp(24px, 4vw, 42px);
 }
 
-.nombre-jugador {
-    margin: 16px 0 20px;
+.campo-nombre {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin: 14px 0 20px;
+}
+
+.campo-nombre label {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.campo-nombre input {
+    width: 190px;
+    padding: 9px 12px;
+    border: 2px solid #a8bd83;
+    border-radius: 8px;
+    background-color: #fff;
+    font: inherit;
     text-align: center;
-    color: #89877a;
-    font: 28px Arial, sans-serif;
+    outline: none;
+}
+
+.campo-nombre input:focus {
+    border-color: #63833e;
+}
+
+.nombre-jugador {
+    margin: 0;
+    padding: 6px 12px;
+    border-radius: 8px;
+    background-color: #edf3e4;
+    color: #405c29;
+    font-weight: bold;
 }
 
 /* Tablero provisional de 10 x 10 */
@@ -617,6 +668,13 @@ body {
     cursor: help;
 }
 
+.casilla.fallo-hover {
+    outline: 3px solid red;
+    outline-offset: -3px;
+    position: relative;
+    z-index: 1;
+}
+
 /* Adaptación a pantallas pequeñas */
 @media (max-width: 480px) {
     .info-jugador {
@@ -634,5 +692,282 @@ body {
     .corazon {
         width: 22px;
         height: 22px;
+    }
+}
+
+/* Instrucciones */
+
+/* Distribución de las instrucciones y la imagen */
+.instrucciones-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 20px;
+    align-items: stretch;
+}
+
+.instrucciones-tabla {
+    min-width: 0;
+}
+
+.instrucciones-tabla h2 {
+    margin-top: 0;
+}
+
+/* Tabla estilo hoja de cálculo */
+.tabla-instrucciones {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 0.9rem;
+}
+
+.tabla-instrucciones th,
+.tabla-instrucciones td {
+    border: 1px solid #cbd5cb;
+    padding: 10px;
+    text-align: left;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+}
+
+.tabla-instrucciones th {
+    background-color: #e5ebe5;
+    font-weight: bold;
+}
+
+.tabla-instrucciones tbody tr:nth-child(odd) {
+    background-color: #eaf4e8;
+}
+
+.tabla-instrucciones tbody tr:nth-child(even) {
+    background-color: transparent;
+}
+
+/* Preparado para destacar la fila desde JavaScript */
+.tabla-instrucciones .fila-instruccion {
+    cursor: pointer;
+}
+
+.tabla-instrucciones .fila-instruccion:hover {
+    outline: 2px solid #8caf86;
+    outline-offset: -2px;
+}
+
+/* Imagen de ejemplo */
+.instrucciones-imagen {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.instrucciones-imagen img {
+    display: block;
+    width: 100%;
+    max-height: 380px;
+    object-fit: contain;
+    border: 1px solid #cbd5cb;
+    border-radius: 6px;
+}
+
+#texto-imagen-instruccion {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 10px;
+}
+
+/* En pantallas estrechas, instrucciones arriba e imagen abajo */
+@media (max-width: 700px) {
+    .instrucciones-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .tabla-instrucciones {
+        font-size: 0.82rem;
+    }
+
+    .tabla-instrucciones th,
+    .tabla-instrucciones td {
+        padding: 7px;
+    }
+
+    .instrucciones-imagen img {
+        max-height: 280px;
+    }
+}
+
+/*Modal de instrucciones desde Bienvenida*/
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+
+.modal-contenido {
+    position: relative;
+    width: min(90%, 900px);
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 24px;
+    background: white;
+    border-radius: 10px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* Modal resultado */
+
+.modal-resultado-contenido {
+    width: min(94%, 950px);
+    max-height: 92vh;
+    overflow-y: auto;
+    padding: 24px;
+}
+
+/* Resultado individual */
+
+.resultado-contenido {
+    text-align: center;
+}
+
+.resultado-encabezado h1 {
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.resultado-encabezado h2 {
+    margin: 8px 0;
+}
+
+.resultado-encabezado p {
+    margin: 8px 0;
+}
+
+.puntuacion-final {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin: 16px auto 22px;
+    padding: 12px;
+    max-width: 260px;
+    border-radius: 10px;
+    background-color: #eaf4e8;
+}
+
+.puntuacion-final strong {
+    font-size: 2rem;
+}
+
+/* Encabezado de Top Pastos */
+
+.top-encabezado {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.top-encabezado h2 {
+    margin-bottom: 4px;
+}
+
+.top-encabezado p {
+    margin-top: 4px;
+}
+
+/* Clasificaciones */
+
+.tarjeta-clasificacion {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.grupo-clasificacion {
+    min-width: 0;
+    padding: 14px;
+    border: 1px solid #cbd5cb;
+    border-radius: 10px;
+    background-color: #f8fbf7;
+}
+
+.nivel-clasificacion {
+    margin: 0 0 12px;
+    text-align: center;
+}
+
+.lista-records {
+    margin: 0;
+    padding-left: 28px;
+}
+
+.lista-records li {
+    padding: 8px 2px;
+    border-bottom: 1px solid #dce5da;
+}
+
+.lista-records li:last-child {
+    border-bottom: none;
+}
+
+.lista-records li span {
+    overflow-wrap: anywhere;
+}
+
+.lista-records li span:last-child {
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* Resultado del jugador fuera del Top 3 */
+
+.resultado-fuera-top {
+    margin: 12px 0 0;
+    padding: 10px 8px;
+    border-top: 2px solid #8caf86;
+    border-radius: 4px;
+    background-color: #eaf4e8;
+    font-weight: bold;
+    overflow-wrap: anywhere;
+}
+
+/* Botones */
+
+.botones-resultado {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+/* Adaptación a pantallas pequeñas */
+
+@media (max-width: 700px) {
+    .modal-resultado-contenido {
+        width: 96%;
+        max-height: 94vh;
+        padding: 16px;
+    }
+
+    .tarjeta-clasificacion {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 10px;
+    }
+
+    .grupo-clasificacion {
+        padding: 12px;
+    }
+
+    .puntuacion-final strong {
+        font-size: 1.7rem;
     }
 }
