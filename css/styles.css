@@ -1,13 +1,16 @@
+/* =========================================================
+   MUUUDOKU - HOJA DE ESTILOS ORGANIZADA
+   Se han unificado reglas repetidas y separado cada pantalla.
+   ========================================================= */
 
-/* Fuente del título */
+/* 1. FUENTE Y AJUSTES GENERALES */
 @font-face {
     font-family: "Harry";
-    src: url("../assets/fonts/Harri-Regular.woff") format("truetype");
+    src: url("../assets/fonts/Harri-Regular.woff") format("woff");
     font-weight: normal;
     font-style: normal;
 }
 
-/* Ajustes generales */
 * {
     box-sizing: border-box;
 }
@@ -15,42 +18,42 @@
 body {
     margin: 0;
     min-height: 100vh;
-    font-family: Arial, sans-serif;
+    background: #fff;
     color: #4d897d;
-    background-color: #ffffff;
+    font-family: Arial, sans-serif;
 }
 
-/*Cambio de vistas con  js*/
-.block {
-  display: block; /* O 'flex' / 'grid' según tu diseño */
-}
 .hidden {
-  display: none !important; /* El !important asegura que se oculte sin importar otros estilos */
+    display: none !important;
 }
 
-/* Pantalla de acceso */
+.block {
+    display: block;
+}
+
+.titulo-juego {
+    margin: 0 0 28px;
+    color: #4d897d;
+    font-family: "Harry", Georgia, serif;
+    font-size: clamp(2.8rem, 6vw, 3.5rem);
+    font-weight: normal;
+    letter-spacing: 2px;
+    text-transform: capitalize;
+}
+
+/* 2. PANTALLA DE ACCESO */
 #acceso {
-    min-height: 100vh;
     display: flex;
+    min-height: 100vh;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 30px 16px;
 }
 
-/* Encabezado */
 .encabezado {
-    text-align: center;
     margin-bottom: 16px;
-}
-
-.titulo-juego {
-    margin: 0 0 28px;
-    font-family: "Harry", Georgia, serif;
-    font-size: clamp(2.8rem, 6vw, 3.5rem);
-    font-weight: normal;
-    text-transform: capitalize;
-    letter-spacing: 2px;
+    text-align: center;
 }
 
 .subtitulo {
@@ -59,17 +62,15 @@ body {
     line-height: 1.3;
 }
 
-/* Tarjeta del formulario */
 .tarjeta-acceso {
     width: 100%;
     max-width: 366px;
     padding: 42px 38px 50px;
-    background-color: #d5e8d7;
     border: 1px solid #454545;
     border-radius: 22px;
+    background: #d5e8d7;
 }
 
-/* Campos */
 .grupo-campo {
     display: flex;
     flex-direction: column;
@@ -87,9 +88,9 @@ body {
     min-width: 0;
     height: 48px;
     padding: 8px 12px;
-    border: 1px solid #777777;
+    border: 1px solid #777;
     border-radius: 12px;
-    background-color: #ffffff;
+    background: #fff;
     font-family: Arial, sans-serif;
     font-size: 1rem;
 }
@@ -99,108 +100,80 @@ body {
     outline-offset: 2px;
 }
 
-/* Botón de acceso */
 #btn-entrar {
     width: 100%;
     min-height: 48px;
     border: 1px solid #75675f;
     border-radius: 12px;
-    background-color: #897a72;
-    color: #ffffff;
+    background: #897a72;
+    color: #fff;
     font-family: Arial, sans-serif;
     font-size: 1.8rem;
     cursor: pointer;
 }
 
 #btn-entrar:hover {
-    filter: brightness(0.93);
+    filter: brightness(.93);
 }
 
-#btn-entrar:focus-visible {
-    outline: 2px solid #4d897d;
+#btn-entrar:focus-visible,
+.boton-nivel:focus-visible,
+.boton-top:focus-visible,
+.boton-principal:focus-visible,
+.boton-secundario:focus-visible {
+    outline: 3px solid #4d897d;
     outline-offset: 3px;
 }
 
-/* Mensajes */
 .mensaje {
     margin: 14px 0 0;
-    font-size: 0.9rem;
+    font-size: .9rem;
     text-align: center;
 }
 
-.mensaje.error {
-    color: #a52e2e;
-}
+.mensaje.error { color: #a52e2e; }
+.mensaje.exito { color: #287d43; }
 
-.mensaje.exito {
-    color: #287d43;
-}
-
-/* Adaptación a pantallas pequeñas */
-@media (max-width: 400px) {
-    .tarjeta-acceso {
-        padding: 30px 24px 35px;
-    }
-}
-
-/* Pantalla de bienvenida */
-
+/* 3. PANTALLA DE BIENVENIDA Y SELECCIÓN DE NIVEL */
 #bienvenida {
     min-height: 100vh;
-    box-sizing: border-box;
     padding: 40px 20px;
-    background-color: #ffffff;
+    background: #fff;
 }
 
 .bienvenida-contenido {
+    display: flex;
     width: 100%;
     max-width: 500px;
-    margin: 0 auto;
-    display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 0 auto;
 }
 
-.bienvenida-encabezado, 
-.botones-resultado,
-.resultado-encabezado {
+.bienvenida-encabezado {
+    margin: 50px 0 40px;
     text-align: center;
-    margin-top: 100px;
-    margin-bottom: 40px;
-}
-
-.titulo-juego {
-    font-family: "Harry", serif;
-    font-size: 52px;
-    color: #4d897d;
-    margin: 0 0 35px;
 }
 
 .subtitulo-bienvenida {
-    font-family: Arial, sans-serif;
-    font-size: 20px;
-    color: #4d897d;
     margin: 0;
+    color: #4d897d;
+    font-size: 20px;
 }
 
-/* Tarjeta que contiene los niveles */
-
 .tarjeta-niveles {
-    box-sizing: border-box;
+    display: flex;
     width: 366px;
     max-width: 100%;
     min-height: 409px;
-    padding: 73px 40px 80px;
-
-    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     gap: 35px;
-
-    background-color: #d5e8d7;
-    border: 1px solid #333333;
+    padding: 73px 40px 80px;
+    border: 1px solid #333;
     border-radius: 22px;
+    background: #d5e8d7;
 }
 
 .campo-nombre {
@@ -208,99 +181,66 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 6px;
-    margin: 12px 0 20px;
+    margin: 14px 0 20px;
 }
 
-/* Campo para cambiar el nombre del jugador */
+.campo-nombre label {
+    font-size: .9rem;
+    font-weight: bold;
+}
+
 .campo-nombre input {
-    width: 180px;
-    padding: 8px 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    width: 190px;
+    padding: 9px 12px;
+    border: 2px solid #a8bd83;
+    border-radius: 8px;
+    background: #fff;
     font: inherit;
     text-align: center;
+    outline: none;
 }
 
+.campo-nombre input:focus {
+    border-color: #63833e;
+}
 
-/* Botones de dificultad */
+.boton-nivel,
+.boton-top {
+    min-height: 49px;
+    border: 1px solid #655b56;
+    border-radius: 11px;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 28px;
+    cursor: pointer;
+}
 
 .boton-nivel {
     width: 100%;
     min-height: 48px;
-
-    background-color: #897a72;
-    color: #ffffff;
-
-    border: 1px solid #655b56;
-    border-radius: 11px;
-
-    font-family: Arial, sans-serif;
-    font-size: 28px;
-    cursor: pointer;
+    background: #897a72;
 }
-
-.boton-nivel:hover {
-    filter: brightness(1.08);
-}
-
-.boton-nivel:focus-visible,
-.boton-top:focus-visible {
-    outline: 3px solid #4d897d;
-    outline-offset: 3px;
-}
-
-/* Botón Top pastos - cambiado a instrucciones en pantalla bienvenida */
 
 .boton-top {
     width: 250px;
     max-width: 100%;
-    min-height: 49px;
     margin-top: 67px;
-
-    background-color: #4d897d;
-    color: #ffffff;
-
-    border: 1px solid #655b56;
-    border-radius: 11px;
-
-    font-family: Arial, sans-serif;
-    font-size: 28px;
-    cursor: pointer;
+    background: #4d897d;
 }
 
+.boton-nivel:hover,
 .boton-top:hover {
     filter: brightness(1.08);
 }
 
-/* Ajustes para pantallas pequeñas */
-
-@media (max-width: 480px) {
-    .bienvenida-encabezado {
-        margin-top: 50px;
-    }
-
-    .titulo-juego {
-        font-size: 44px;
-    }
-
-    .tarjeta-niveles {
-        padding-left: 30px;
-        padding-right: 30px;
-    }
-}
-
-/* Pantalla de juego */
-
-#juego, #resultado,
-#topPastos {
-    box-sizing: border-box;
+/* 4. PANTALLA DE JUEGO */
+#juego {
     min-height: 100vh;
     padding: 24px;
-    background: #ffffff;
+    background: #fff;
 }
 
-.juego-contenido,
-.top-contenido {
+.juego-contenido {
     width: 100%;
     max-width: 1000px;
     margin: 0 auto;
@@ -323,7 +263,7 @@ body {
     align-items: center;
     gap: 14px;
     color: #4d897d;
-    font-family: "Harry", serif;
+    font-family: "Harry", Georgia, serif;
     font-size: clamp(20px, 3vw, 32px);
     text-transform: uppercase;
 }
@@ -334,71 +274,114 @@ body {
     font-size: clamp(24px, 4vw, 42px);
 }
 
-.campo-nombre {
+.info-jugador {
     display: flex;
-    flex-direction: column;
+    width: 100%;
     align-items: center;
-    gap: 6px;
-    margin: 14px 0 20px;
-}
-
-.campo-nombre label {
-    font-size: 0.9rem;
-    font-weight: bold;
-}
-
-.campo-nombre input {
-    width: 190px;
-    padding: 9px 12px;
-    border: 2px solid #a8bd83;
-    border-radius: 8px;
-    background-color: #fff;
-    font: inherit;
-    text-align: center;
-    outline: none;
-}
-
-.campo-nombre input:focus {
-    border-color: #63833e;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 0 2px;
 }
 
 .nombre-jugador {
     margin: 0;
     padding: 6px 12px;
     border-radius: 8px;
-    background-color: #edf3e4;
+    background: #edf3e4;
     color: #405c29;
+    font-size: 1rem;
     font-weight: bold;
 }
 
-/* Tablero provisional de 10 x 10 */
+.vidas {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+}
 
+.corazon {
+    display: block;
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    cursor: default;
+}
+
+.corazon.consumido {
+    cursor: help;
+}
+
+/* Tablero: las clases grid-8, grid-12 y grid-16 determinan columnas */
 .tablero {
     display: grid;
-    grid-template-columns: repeat(10, minmax(0, 1fr));
-    width: min(100%, 720px);
+    width: min(90vw, 720px);
+    aspect-ratio: 1 / 1;
     margin: 0 auto;
     padding: 8px;
-    box-sizing: border-box;
-    border: 1px solid #555;
-    border-radius: 17px;
-    background: #d5e8d7;
     overflow: hidden;
+    border: 1px solid #555;
+    border-radius: 16px;
+    background: #d5e8d7;
 }
+
+.tablero.grid-8  { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+.tablero.grid-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+.tablero.grid-16 { grid-template-columns: repeat(16, minmax(0, 1fr)); }
 
 .casilla {
-    aspect-ratio: 1;
+    display: flex;
+    min-width: 0;
+    min-height: 0;
+    aspect-ratio: 1 / 1;
+    align-items: center;
+    justify-content: center;
     border: 1px solid #555;
-    box-sizing: border-box;
-    background: #a9d2b0;
+    background: #d5e8d7;
+    cursor: pointer;
 }
 
-.casilla.pasto-1 { background: #d5e8d7; }
-.casilla.pasto-2 { background: #719895; }
-.casilla.pasto-3 { background: #a8d1b0; }
-.casilla.pasto-4 { background: #b0c91c; }
-.casilla.pasto-5 { background: #009844; }
-.casilla.pasto-6 { background: #e0e58b; }
+.casilla img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+/* Colores de las regiones */
+.color-pasto-1  { background-color: #D5E8D7; }
+.color-pasto-2  { background-color: #719895; }
+.color-pasto-3  { background-color: #A8D1B0; }
+.color-pasto-4  { background-color: #B0C91C; }
+.color-pasto-5  { background-color: #009844; }
+.color-pasto-6  { background-color: #E0E58B; }
+.color-pasto-7  { background-color: #C2D0A0; }
+.color-pasto-8  { background-color: #9E7B83; }
+.color-pasto-9  { background-color: #AB977D; }
+.color-pasto-10 { background-color: #8E776D; }
+.color-pasto-11 { background-color: #E7CF8A; }
+.color-pasto-12 { background-color: #9A785F; }
+.color-pasto-13 { background-color: #82B7A5; }
+.color-pasto-14 { background-color: #657F68; }
+.color-pasto-15 { background-color: #C9D98A; }
+.color-pasto-16 { background-color: #B9A995; }
+
+.hayVaca,
+.hayAspa {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.hayVaca { background-image: url("../assets/images/vaca.png"); }
+.hayAspa  { background-image: url("../assets/images/aspa.png"); }
+
+.casilla.fallo-hover {
+    position: relative;
+    z-index: 1;
+    outline: 3px solid red;
+    outline-offset: -3px;
+}
 
 .botones-juego {
     display: flex;
@@ -414,434 +397,57 @@ body {
     min-height: 49px;
     border: 1px solid #655b56;
     border-radius: 11px;
-    color: white;
+    color: #fff;
     font: 28px Arial, sans-serif;
     cursor: pointer;
 }
 
-.boton-principal {
-    background: #4d897d;
-}
+.boton-principal { background: #4d897d; }
+.boton-secundario { background: #89877a; }
 
-.boton-secundario {
-    background: #89877a;
-}
-
-/* Pantalla Top pastos */
-
-.top-contenido {
-    max-width: 630px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.top-encabezado {
-    text-align: center;
-    margin-bottom: 22px;
-}
-
-.top-encabezado .titulo-juego {
-    margin: 10px 0 30px;
-}
-
-.tarjeta-clasificacion {
-    box-sizing: border-box;
-    width: 100%;
-    padding: 35px 12%;
-    background: #d5e8d7;
-    border: 1px solid #555;
-    border-radius: 35px;
-}
-
-.grupo-clasificacion {
-    margin-bottom: 26px;
-}
-
-.grupo-clasificacion:last-child {
-    margin-bottom: 0;
-}
-
-.nivel-clasificacion {
-    width: 250px;
-    max-width: 100%;
-    margin: 0 auto 10px;
-    padding: 7px;
-    box-sizing: border-box;
-    border: 1px solid #655b56;
-    border-radius: 11px;
-    background: #897a72;
-    color: white;
-    text-align: center;
-    font: normal 28px Arial, sans-serif;
-}
-
-.lista-records {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    color: #89877a;
-    font: 23px Arial, sans-serif;
-}
-
-.lista-records li {
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-    margin: 7px 0;
-}
-
-.lista-records li span:first-child {
-    overflow-wrap: anywhere;
-}
-
-#btn-volver-pastar {
-    margin-top: 30px;
-}
-
-@media (max-width: 600px) {
-    #juego,
-    #topPastos {
-        padding: 16px 10px;
-    }
-
-    .juego-encabezado {
-        flex-wrap: wrap;
-    }
-
-    .tablero {
-        padding: 4px;
-    }
-
-    .botones-juego {
-        gap: 12px;
-        margin-top: 30px;
-    }
-
-    .boton-principal,
-    .boton-secundario {
-        font-size: 20px;
-    }
-
-    .tarjeta-clasificacion {
-        padding: 24px 5%;
-        border-radius: 24px;
-    }
-
-    .lista-records {
-        font-size: 16px;
-    }
-
-    .nivel-clasificacion {
-        font-size: 22px;
-    }
-}
-/* ========   TABLERO DE MUUUDOKU  ============ */
-
-.tablero {
-    display: grid;
-    width: min(90vw, 720px);
-    aspect-ratio: 1 / 1;
-    margin: 0 auto;
-    padding: 8px;
-    box-sizing: border-box;
-
-    border: 1px solid #555555;
-    border-radius: 16px;
-    background-color: #d5e8d7;
-
-    overflow: hidden;
-}
-
-/* Tamaños de la cuadrícula */
-
-.tablero.grid-8 {
-    grid-template-columns: repeat(8, minmax(0, 1fr));
-}
-
-.tablero.grid-12 {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-}
-
-.tablero.grid-16 {
-    grid-template-columns: repeat(16, minmax(0, 1fr));
-}
-
-/* =============   CASILLAS   =============== */
-
-.casilla {
-    min-width: 0;
-    min-height: 0;
-    aspect-ratio: 1 / 1;
-    box-sizing: border-box;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    border: 1px solid #555555;
-    background-color: #d5e8d7;
-
-    cursor: pointer;
-}
-
-/* Iconos de las casillas */
-
-.casilla img {
-    width: 80%;
-    height: 80%;
-    object-fit: contain;
-    pointer-events: none;
-}
-
-/* ======== COLORES DE LAS 16 REGIONES ============ */
-
-.color-pasto-1  { background-color: #D5E8D7; } 
-.color-pasto-2  { background-color: #719895; } 
-.color-pasto-3  { background-color: #A8D1B0; }
-.color-pasto-4  { background-color: #B0C91C; } 
-.color-pasto-5  { background-color: #009844; } 
-.color-pasto-6  { background-color: #E0E58B; } 
-.color-pasto-7  { background-color: #C2D0A0; } 
-.color-pasto-8  { background-color: #9E7B83; } 
-.color-pasto-9  { background-color: #AB977D; } 
-.color-pasto-10 { background-color: #8E776D; } 
-.color-pasto-11 { background-color: #E7CF8A; } 
-.color-pasto-12 { background-color: #9A785F; } 
-.color-pasto-13 { background-color: #82B7A5; } 
-.color-pasto-14 { background-color: #657F68; }
-.color-pasto-15 { background-color: #C9D98A; }
-.color-pasto-16 { background-color: #B9A995; }
-
-/* clases de estado de casilla*/
-.hayVaca {
-    background-image: url("../assets/images/vaca.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-}
-
-.hayAspa {
-    background-image: url("../assets/images/aspa.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-}
-
-/* Barra de información situada encima del tablero */
-.info-jugador {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-    padding: 0 2px;
-}
-
-/* Nombre del jugador, en la esquina izquierda */
-.nombre-jugador {
-    margin: 0;
-    font-size: 1rem;
-    font-weight: bold;
-}
-
-/* Contenedor de corazones, en la esquina derecha */
-.vidas {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 6px;
-}
-
-/* Imagen de la vida / corazón */
-.corazon {
-    display: block;
-    width: 26px;
-    height: 26px;
-    object-fit: contain;
-    cursor: default;
-}
-
-/* Imagen de una vida consumida */
-.corazon.consumido {
-    cursor: help;
-}
-
-.casilla.fallo-hover {
-    outline: 3px solid red;
-    outline-offset: -3px;
-    position: relative;
-    z-index: 1;
-}
-
-/* Adaptación a pantallas pequeñas */
-@media (max-width: 480px) {
-    .info-jugador {
-        margin-bottom: 6px;
-    }
-
-    .nombre-jugador {
-        font-size: 0.9rem;
-    }
-
-    .vidas {
-        gap: 4px;
-    }
-
-    .corazon {
-        width: 22px;
-        height: 22px;
-    }
-}
-
-/* Instrucciones */
-
-/* Distribución de las instrucciones y la imagen */
-.instrucciones-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-    gap: 20px;
-    align-items: stretch;
-}
-
-.instrucciones-tabla {
-    min-width: 0;
-}
-
-.instrucciones-tabla h2 {
-    margin-top: 0;
-}
-
-/* Tabla estilo hoja de cálculo */
-.tabla-instrucciones {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed;
-    font-size: 0.9rem;
-}
-
-.tabla-instrucciones th,
-.tabla-instrucciones td {
-    border: 1px solid #cbd5cb;
-    padding: 10px;
-    text-align: left;
-    vertical-align: top;
-    overflow-wrap: anywhere;
-}
-
-.tabla-instrucciones th {
-    background-color: #e5ebe5;
-    font-weight: bold;
-}
-
-.tabla-instrucciones tbody tr:nth-child(odd) {
-    background-color: #eaf4e8;
-}
-
-.tabla-instrucciones tbody tr:nth-child(even) {
-    background-color: transparent;
-}
-
-/* Preparado para destacar la fila desde JavaScript */
-.tabla-instrucciones .fila-instruccion {
-    cursor: pointer;
-}
-
-.tabla-instrucciones .fila-instruccion:hover {
-    outline: 2px solid #8caf86;
-    outline-offset: -2px;
-}
-
-/* Imagen de ejemplo */
-.instrucciones-imagen {
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-}
-
-.instrucciones-imagen img {
-    display: block;
-    width: 100%;
-    max-height: 380px;
-    object-fit: contain;
-    border: 1px solid #cbd5cb;
-    border-radius: 6px;
-}
-
-#texto-imagen-instruccion {
-    font-size: 0.9rem;
-    color: #555;
-    margin-top: 10px;
-}
-
-/* En pantallas estrechas, instrucciones arriba e imagen abajo */
-@media (max-width: 700px) {
-    .instrucciones-layout {
-        grid-template-columns: minmax(0, 1fr);
-    }
-
-    .tabla-instrucciones {
-        font-size: 0.82rem;
-    }
-
-    .tabla-instrucciones th,
-    .tabla-instrucciones td {
-        padding: 7px;
-    }
-
-    .instrucciones-imagen img {
-        max-height: 280px;
-    }
-}
-
-/*Modal de instrucciones desde Bienvenida*/
+/* 5. MODALES: INSTRUCCIONES Y RESULTADO */
 .modal {
     position: fixed;
     inset: 0;
     z-index: 1000;
     display: flex;
+    align-items: flex-start;
     justify-content: center;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.6);
+    overflow-y: auto;
+    padding: 3vh 12px;
+    background: rgba(0, 0, 0, .6);
 }
-
 
 .modal-contenido {
     position: relative;
     width: min(90%, 900px);
-    max-height: 90vh;
+    max-height: 94vh;
     overflow-y: auto;
     padding: 24px;
-    background: white;
     border-radius: 10px;
+    background: #fff;
 }
-
-.hidden {
-    display: none !important;
-}
-
-
-/* Modal resultado */
 
 .modal-resultado-contenido {
-    width: min(94%, 950px);
-    max-height: 92vh;
-    overflow-y: auto;
-    padding: 24px;
+    width: min(96%, 950px);
+    max-height: none;
+    margin: auto 0;
+    padding: 24px clamp(16px, 3vw, 32px);
 }
 
-/* Resultado individual */
-
+/* Resultado individual: no compartir márgenes grandes con la bienvenida */
 .resultado-contenido {
     text-align: center;
 }
 
-.resultado-encabezado h1 {
-    margin-top: 0;
-    margin-bottom: 8px;
+.resultado-encabezado {
+    margin: 0 0 18px;
+    text-align: center;
+}
+
+.resultado-encabezado .titulo-juego {
+    margin: 0 0 8px;
+    font-size: clamp(38px, 5vw, 52px);
 }
 
 .resultado-encabezado h2 {
@@ -854,120 +460,256 @@ body {
 
 .puntuacion-final {
     display: flex;
+    max-width: 260px;
     flex-direction: column;
     align-items: center;
     gap: 4px;
     margin: 16px auto 22px;
     padding: 12px;
-    max-width: 260px;
     border-radius: 10px;
-    background-color: #eaf4e8;
+    background: #eaf4e8;
 }
 
 .puntuacion-final strong {
     font-size: 2rem;
 }
 
-/* Encabezado de Top Pastos */
+/* 6. CLASIFICACIÓN: UNA FILA POR NIVEL */
+.top-contenido {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    margin: 0 auto;
+}
 
 .top-encabezado {
+    margin: 0 0 16px;
     text-align: center;
-    margin-bottom: 16px;
 }
 
 .top-encabezado h2 {
-    margin-bottom: 4px;
+    margin: 0 0 4px;
 }
 
 .top-encabezado p {
-    margin-top: 4px;
+    margin: 4px 0 0;
 }
-
-/* Clasificaciones */
 
 .tarjeta-clasificacion {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 14px;
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #555;
+    border-radius: 20px;
+    background: #d5e8d7;
 }
 
-.grupo-clasificacion {
-    min-width: 0;
-    padding: 14px;
-    border: 1px solid #cbd5cb;
-    border-radius: 10px;
-    background-color: #f8fbf7;
-}
-
-.nivel-clasificacion {
-    margin: 0 0 12px;
+.tabla-clasificacion {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    color: #655b56;
+    font: 17px Arial, sans-serif;
     text-align: center;
 }
 
-.lista-records {
-    margin: 0;
-    padding-left: 28px;
-}
-
-.lista-records li {
-    padding: 8px 2px;
-    border-bottom: 1px solid #dce5da;
-}
-
-.lista-records li:last-child {
-    border-bottom: none;
-}
-
-.lista-records li span {
+.tabla-clasificacion th,
+.tabla-clasificacion td {
+    padding: 13px 9px;
+    border: 1px solid #c3d2c4;
     overflow-wrap: anywhere;
+    vertical-align: middle;
 }
 
-.lista-records li span:last-child {
+.tabla-clasificacion thead th {
+    background: #897a72;
+    color: #fff;
     font-weight: bold;
-    white-space: nowrap;
 }
 
-/* Resultado del jugador fuera del Top 3 */
+.tabla-clasificacion thead th:first-child,
+.tabla-clasificacion tbody th {
+    width: 19%;
+}
 
-.resultado-fuera-top {
-    margin: 12px 0 0;
-    padding: 10px 8px;
-    border-top: 2px solid #8caf86;
-    border-radius: 4px;
-    background-color: #eaf4e8;
+.tabla-clasificacion tbody th {
+    background: #b9d3bb;
+    text-align: left;
+}
+
+.tabla-clasificacion tbody tr:nth-child(even) td {
+    background: #f4f8f2;
+}
+
+#resultado-jugador-fuera-top {
+    margin-top: 14px;
+    color: #655b56;
     font-weight: bold;
-    overflow-wrap: anywhere;
 }
 
-/* Botones */
+#resultado-jugador-fuera-top p {
+    margin: 7px 0;
+    padding: 9px 12px;
+    border-left: 4px solid #4d897d;
+    border-radius: 5px;
+    background: #eaf4e8;
+}
 
 .botones-resultado {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 12px;
-    margin-top: 22px;
+    margin: 22px 0 0;
+    text-align: center;
 }
 
-/* Adaptación a pantallas pequeñas */
+/* 7. INSTRUCCIONES */
+.instrucciones-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    align-items: stretch;
+    gap: 20px;
+}
 
+.instrucciones-tabla { min-width: 0; }
+.instrucciones-tabla h2 { margin-top: 0; }
+
+.tabla-instrucciones {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: .9rem;
+}
+
+.tabla-instrucciones th,
+.tabla-instrucciones td {
+    padding: 10px;
+    border: 1px solid #cbd5cb;
+    text-align: left;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+}
+
+.tabla-instrucciones th {
+    background: #e5ebe5;
+    font-weight: bold;
+}
+
+.tabla-instrucciones tbody tr:nth-child(odd) { background: #eaf4e8; }
+.tabla-instrucciones .fila-instruccion { cursor: pointer; }
+
+.tabla-instrucciones .fila-instruccion:hover {
+    outline: 2px solid #8caf86;
+    outline-offset: -2px;
+}
+
+.instrucciones-imagen {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.instrucciones-imagen img {
+    display: block;
+    width: 100%;
+    max-height: 380px;
+    border: 1px solid #cbd5cb;
+    border-radius: 6px;
+    object-fit: contain;
+}
+
+#texto-imagen-instruccion {
+    margin-top: 10px;
+    color: #555;
+    font-size: .9rem;
+}
+
+/* 8. ADAPTACIÓN A MÓVILES */
 @media (max-width: 700px) {
+    .modal {
+        align-items: flex-start;
+        padding: 2vh 8px;
+    }
+
     .modal-resultado-contenido {
-        width: 96%;
-        max-height: 94vh;
-        padding: 16px;
+        width: 100%;
+        padding: 16px 12px;
     }
 
     .tarjeta-clasificacion {
+        padding: 12px 8px;
+        border-radius: 14px;
+    }
+
+    .tabla-clasificacion {
+        font-size: 13px;
+    }
+
+    .tabla-clasificacion th,
+    .tabla-clasificacion td {
+        padding: 9px 4px;
+    }
+
+    .tabla-clasificacion thead th:first-child,
+    .tabla-clasificacion tbody th {
+        width: 18%;
+    }
+
+    .puntuacion-final strong { font-size: 1.7rem; }
+
+    .instrucciones-layout {
         grid-template-columns: minmax(0, 1fr);
-        gap: 10px;
     }
 
-    .grupo-clasificacion {
-        padding: 12px;
+    .tabla-instrucciones { font-size: .82rem; }
+
+    .tabla-instrucciones th,
+    .tabla-instrucciones td { padding: 7px; }
+
+    .instrucciones-imagen img { max-height: 280px; }
+}
+
+@media (max-width: 600px) {
+    #juego { padding: 16px 10px; }
+
+    .juego-encabezado { flex-wrap: wrap; }
+
+    .tablero { padding: 4px; }
+
+    .botones-juego {
+        gap: 12px;
+        margin-top: 30px;
     }
 
-    .puntuacion-final strong {
-        font-size: 1.7rem;
+    .boton-principal,
+    .boton-secundario {
+        min-height: 44px;
+        font-size: 20px;
     }
+}
+
+@media (max-width: 480px) {
+    .bienvenida-encabezado { margin-top: 30px; }
+
+    .titulo-juego { font-size: 44px; }
+
+    .tarjeta-niveles {
+        padding-right: 30px;
+        padding-left: 30px;
+    }
+
+    .info-jugador { margin-bottom: 6px; }
+    .nombre-jugador { font-size: .9rem; }
+    .vidas { gap: 4px; }
+    .corazon { width: 22px; height: 22px; }
+
+    .tarjeta-acceso { padding: 30px 24px 35px; }
+}
+
+@media (max-width: 400px) {
+    .tarjeta-acceso { padding: 30px 24px 35px; }
 }
