@@ -45,10 +45,29 @@
                         required
                     >
                 </div>
+                <div id="bloque-pestillo-login">
+                    <p class="instruccion-pestillo">Desplaza el pomo a la derecha para entrar:</p>
+                    
+                    <!-- PIEZA 1: Fondo (z-index: 1) -->
+                    <div class="caja-pestillo-fondo"> 
+                        
+                        <!-- PIEZA 2: Barra Deslizante Móvil con Flechas (z-index: 2) -->
+                        <div id="barra-pestillo-movil">
+                            <span class="flecha-izq">➤</span>
+                            <span class="flecha-der">➤</span>
+                        </div>
 
-                <button type="submit" id="btn-entrar">
-                    Entrar
-                </button>
+                        <!-- PIEZA 3: Topes Fijos Rectangulares (z-index: 3) -->
+                        <div class="soporte-pestillo s-izq"></div>
+                        <div class="soporte-pestillo s-der"></div>
+
+                        <!-- PIEZA 4: Pomo Circular Superior Móvil (z-index: 4) -->
+                        <div id="pomo-pestillo-movil"></div>
+
+                    </div>
+                </div>
+
+
 
                 <p
                     id="mensaje-acceso"
