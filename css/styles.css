@@ -713,3 +713,87 @@ body {
 @media (max-width: 400px) {
     .tarjeta-acceso { padding: 30px 24px 35px; }
 }
+
+/* =========================================================
+   SISTEMA DE CAPAS ORDENADAS POR Z-INDEX (PESTILLO INTERACTIVO)
+   ========================================================= */
+#bloque-pestillo-login {
+    width: 100%;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.instruccion-pestillo {
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    color: #897a72;
+}
+
+/* PIEZA 1: Fondo del cajón de madera */
+.caja-pestillo-fondo {
+    position: relative;
+    width: 100%;
+    max-width: 290px;
+    height: 75px;
+    background: #a07843; 
+    border: 1px solid #75675f;
+    border-radius: 12px;
+    margin: 0 auto;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* PIEZA 2: Barra de Metal Deslizante con Flechas */
+#barra-pestillo-movil {
+    position: absolute;
+    top: 20px;
+    left: 12px; /* Posición Cerrado Inicial */
+    width: 215px;
+    height: 35px;
+    background: linear-gradient(to bottom, #9fa4a6, #bdc2c4);
+    border: 2px solid #333;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    z-index: 2;
+}
+
+#barra-pestillo-movil span {
+    color: #333;
+    font-size: 1.1rem;
+    user-select: none;
+}
+
+/* PIEZA 3: Topes Rectangulares Fijos */
+.soporte-pestillo {
+    position: absolute;
+    top: 5px;
+    width: 22px;
+    height: 65px;
+    background: linear-gradient(to right, #b0b5b8, #cbd0d3);
+    border: 2px solid #454545;
+    border-radius: 4px;
+    z-index: 3;
+}
+.s-izq { left: 15px; }
+.s-der { right: 55px; } /* Ocultará la flecha derecha al deslizarse */
+
+/* PIEZA 4: Pomo de Agarre Circular Superior */
+#pomo-pestillo-movil {
+    position: absolute;
+    top: 12px;
+    left: 110px; /* Posición Cerrado Inicial alineada */
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(circle, #cbd0d3 20%, #7e8386 80%);
+    border: 3px solid #222;
+    border-radius: 50%;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.4);
+    cursor: grab;
+    z-index: 4;
+}
+#pomo-pestillo-movil:active {
+    cursor: grabbing;
+}
