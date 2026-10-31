@@ -189,7 +189,8 @@ $(document).ready(function(){
     $(document).on("click", "#btn-salir-resultado", function() {
         $("#resultado").addClass("hidden");
         $("#juego").addClass("hidden");
-        $("#bienvenida").removeClass("hidden");
+        $("#bienvenida").addClass("hidden");
+        $("#acceso").removeClass("hidden");
         $("#contenido-resultado").addClass("hidden");
     });
 
