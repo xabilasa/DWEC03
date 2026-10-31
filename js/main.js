@@ -176,13 +176,14 @@ $(document).ready(function(){
         iniciarPartida(nivelActual, datosTableroActual);
     });
 
-    // Botón Salir desde la pantalla de juego y resultado
+    // Botón Salir desde la pantallas de juego y resultado
     $("#btn-salir").on("click", function() {
         detenerCronometro();
         partidaTerminada = true;
         $("#juego").addClass("hidden");
         $("#modal-resultado").addClass("hidden");
-        $("#bienvenida").removeClass("hidden");
+        $("#bienvenida").addClass("hidden");
+        $("#acceso").removeClass("hidden");
     });
 
     //Botón Salir desde la pantalla de resultado  ¡¡ojo posible duplicidad que afecta a funcionamiento!!
