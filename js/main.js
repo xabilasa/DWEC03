@@ -185,14 +185,14 @@ $(document).ready(function(){
         $("#bienvenida").removeClass("hidden");
     });
 
-    /* Botón Salir desde la pantalla de resultado  ¡¡ojo duplicidad!!
+    //Botón Salir desde la pantalla de resultado  ¡¡ojo posible duplicidad que afecta a funcionamiento!!
     $(document).on("click", "#btn-salir-resultado", function() {
         $("#resultado").addClass("hidden");
         $("#juego").addClass("hidden");
         $("#bienvenida").addClass("hidden");
         $("#acceso").removeClass("hidden");
         $("#contenido-resultado").addClass("hidden");
-    });*/
+    });
 
     //Eventos para cargar instrucciones en un modal al clickar "instrucciones"    
     $("#btn-instrucciones").on("click", function () {
