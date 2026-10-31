@@ -176,7 +176,7 @@ $(document).ready(function(){
         iniciarPartida(nivelActual, datosTableroActual);
     });
 
-    // Botón Salir desde la pantalla de juego
+    // Botón Salir desde la pantalla de juego y resultado
     $("#btn-salir").on("click", function() {
         detenerCronometro();
         partidaTerminada = true;
@@ -185,14 +185,14 @@ $(document).ready(function(){
         $("#bienvenida").removeClass("hidden");
     });
 
-    // Botón Salir desde la pantalla de resultado
+    /* Botón Salir desde la pantalla de resultado  ¡¡ojo duplicidad!!
     $(document).on("click", "#btn-salir-resultado", function() {
         $("#resultado").addClass("hidden");
         $("#juego").addClass("hidden");
         $("#bienvenida").addClass("hidden");
         $("#acceso").removeClass("hidden");
         $("#contenido-resultado").addClass("hidden");
-    });
+    });*/
 
     //Eventos para cargar instrucciones en un modal al clickar "instrucciones"    
     $("#btn-instrucciones").on("click", function () {
